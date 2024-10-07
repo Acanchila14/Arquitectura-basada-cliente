@@ -33,43 +33,43 @@ Este código es una aplicación web escrita en Python que utiliza el framework F
 
   
               if not os.path.exists(UPLOAD_FOLDER):
-    os.makedirs(UPLOAD_FOLDER)
+             os.makedirs(UPLOAD_FOLDER)
 
 
    3. **Eliminar un archivo:**
 
 
               @app.route('/delete/<filename>', methods=['DELETE'])
-def delete_file(filename):
-    file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-    if os.path.exists(file_path):
-        os.remove(file_path)
-        return jsonify({'message': 'Archivo eliminado correctamente.'}), 200
-    else:
-        return jsonify({'message': 'Archivo no encontrado.'}), 404
+                  def delete_file(filename):
+                      file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+                      if os.path.exists(file_path):
+                          os.remove(file_path)
+                          return jsonify({'message': 'Archivo eliminado correctamente.'}), 200
+                      else:
+                          return jsonify({'message': 'Archivo no encontrado.'}), 404
 
               
   4. **Subir un archivo:**
 
 
               @app.route('/upload', methods=['POST'])
-def upload_file():
-    if 'file' not in request.files:
-        return 'No file part', 400
-    file = request.files['file']
-    if file.filename == '':
-        return 'No selected file', 400
-    file.save(os.path.join(app.config['UPLOAD_FOLDER'], file.filename))
-    return 'File uploaded successfully', 200
+                  def upload_file():
+                      if 'file' not in request.files:
+                          return 'No file part', 400
+                      file = request.files['file']
+                      if file.filename == '':
+                          return 'No selected file', 400
+                      file.save(os.path.join(app.config['UPLOAD_FOLDER'], file.filename))
+                      return 'File uploaded successfully', 200
 
 
   5. **Listar los archivos subidos:**
 
 
              @app.route('/files', methods=['GET'])
-def list_files():
-    files = os.listdir(app.config['UPLOAD_FOLDER'])
-    return jsonify(files), 200
+                  def list_files():
+                      files = os.listdir(app.config['UPLOAD_FOLDER'])
+                      return jsonify(files), 200
 
 
 
@@ -78,7 +78,7 @@ def list_files():
 
 
               if __name__ == '__main__':
-    app.run(debug=True)
+                app.run(debug=True)
 
 
 
